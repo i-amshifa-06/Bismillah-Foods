@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bismillah Foods</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="images/favicon.jpg" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="images/logo.jpg" alt="Bismillah Foods Logo">
+            <h1>Bismillah Foods</h1>
+            <button class="menu-toggle">☰</button>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Rest of your HTML content -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const header = document.querySelector('header');
+            
+            menuToggle.addEventListener('click', function() {
+                nav.classList.toggle('active');
+            });
+    
+            document.addEventListener('click', function(e) {
+                if (!header.contains(e.target)) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    </script>
+    
+
+    
+
+    
+
+    <main id="home">
+        <section>
+            <div class="welcome">
+                <h2>‎بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</h2>
+                <h1>Welcome to Bismillah Foods</h1>
+                <p>Good food is all the sweeter when shared with good friends.</p>
+
+
+
+                <button class="menu-btn" onclick="document.querySelector('#menu').scrollIntoView({ behavior: 'smooth' });">View Menu</button>
+            </div>
+        </section>
+
+        <section id="menu">
+            <h2>Our Menu</h2>
+            <div class="menu-row">
+                <div class="menu-item" onclick="showMenu('shawarma')" >
+                    <img src="images/shawarma.jpg" alt="Shawarma" />
+                    <p>Shawarma</p>
+                   <a href="shawarma.html"><button>See Shawarma Menu</button></a>
+                </div>
+                <div class="menu-item" onclick="showMenu('loaded-fries')">
+                    <img src="images/loaded-fries.jpg" alt="Loaded Fries" />
+                    <p>Loaded Fries</p>
+                   <a href="loaded-fries.html"><button>See Loaded Fries Menu</button></a>
+                </div>
+                <div class="menu-item" onclick="showMenu('bread-omelet')">
+                    <img src="images/bread-omelette.webp" alt="Bread Omelet" />
+                    <p>Bread Omelet</p>
+                    <a href="bread-omlette.html"><button>See bread-omelet Menu</button></a>
+                </div>
+            </div>
+            <div class="menu-row">
+                <div class="menu-item" onclick="showMenu('shawarma-platter')">
+                    <img src="images/shawarma-platter.jpeg" alt="Shawarma Platter" />
+                    <p>Shawarma Platter</p>
+                    <a href="shawarma-platter.html"><button>See shawarma-platter Menu</button></a>
+                </div>
+                <div class="menu-item" onclick="showMenu('french-fries')">
+                    <img src="images/French-fries.webp" alt="French Fries" />
+                    <p>French Fries</p>
+                    <a href="fench-fries.html"><button>See French-fries Menu</button></a>
+                </div>
+                <div class="menu-item" onclick="showMenu('broasted-chicken')">
+                    <img src="images/food2.jpg" alt="Broasted Chicken" />
+                    <p>Broasted Chicken</p>
+                    <a href="broasted-chicken.html"><button>See broasted-chicken Menu</button></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <h2>Customer Reviews</h2>
+            <form id="reviewForm">
+                <input type="text" name="name" placeholder="Your Name" required />
+                <textarea name="review" placeholder="Your Review" required></textarea>
+                <div class="rating">
+                    <input type="radio" name="rating" value="1" id="star1"/><label for="star1">☆</label>
+                    <input type="radio" name="rating" value="2" id="star2" /><label for="star2">☆</label>
+                    <input type="radio" name="rating" value="3" id="star3" /><label for="star3">☆</label>
+                    <input type="radio" name="rating" value="4" id="star4" /><label for="star4">☆</label>
+                    <input type="radio" name="rating" value="5" id="star5"required /><label for="star5">☆</label>
+                </div>
+                <button type="submit">Post Review</button>
+            </form>
+            <div id="reviewsContainer"></div>
+        </section>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('reviewForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get form values
+        const review = document.querySelector('textarea[name="review"]').value;
+        const name = document.querySelector('input[name="name"]').value;
+        const rating = document.querySelector('input[name="rating"]:checked').value;
+
+        // Create new review element
+        const reviewElement = document.createElement('div');
+        reviewElement.classList.add('review');
+        reviewElement.innerHTML = `
+            <h4>${name}</h4>
+            <p>${review}</p>
+            <p>Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
+            <hr>
+        `;
+
+        // Prepend new review to reviews container
+        const reviewsContainer = document.getElementById('reviewsContainer');
+        reviewsContainer.insertBefore(reviewElement, reviewsContainer.firstChild);
+
+        // Clear form fields
+        document.getElementById('reviewForm').reset();
+    });
+});
+
+        </script>
+        
+        
+        
+        
+
+        <section id="contact">
+            <h2>Contact Us:</h2>
+            <div class="contact-item">
+                <span><img src="images/call_11723509.png" alt="Call Icon" class="contact-icon">
+                Call: +91 75400 11386</span>
+            </div>
+            <div class="contact-item">
+                <span><img src="images/whatsapp.png" alt="WhatsApp Icon" class="contact-icon">
+                WhatsApp: +91 96262 26102</span>
+            </div>
+            <div class="contact-item">
+                
+                <span><img src="images/whatsapp.png" alt="WhatsApp Icon" class="contact-icon"><a href=" https://whatsapp.com/channel/0029VaMVUN57YSd9EvIV4Q2g ">Follow our whatsapp channel</a></span>
+            </div>
+            <div class="contact-item">
+                <span><img src="images/instagram_3991634.png" alt="Instagram Icon" class="contact-icon"><a href="https://www.instagram.com/_bismillah_foods/profilecard/?igsh=aDM5bXBhd2VmM3Rw" target="_blank">_bismillah_foods</a></span>
+            </div>
+            <div class="contact-item">
+                
+                <span><img src="images/location_535239.png" alt="Location Icon" class="contact-icon">Location: Cholukkar Street, Kayalpattinam, Thoothukudi, Tamil Nadu</span>
+            </div>
+            <div class="contact-item">
+                
+                <span><img src="images/location_535239.png" alt="Map Icon" class="contact-icon"><a href="https://maps.app.goo.gl/sAuZzGXskNehKGSD8?g_st=ac" target="_blank">Click here to see our live location</a></span>
+            </div>
+        </section>
+        </main>
+
+        <footer>
+            <h4>&copy; 2024 Bismillah Foods. All rights reserved.</h4>
+        </footer>
+
+    <script>
+        
+    </script>
+    <script src="script.js"></script>
+    
+</body>
+</html>
