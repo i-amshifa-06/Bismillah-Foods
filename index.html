@@ -103,49 +103,64 @@
 
         <section id="reviews">
             <h2>Customer Reviews</h2>
-            <form id="reviewForm">
+            <form id="reviewForm" enctype="multipart/form-data">
                 <input type="text" name="name" placeholder="Your Name" required />
+                <input type="file" name="foodImage" accept="image/*" required />
                 <textarea name="review" placeholder="Your Review" required></textarea>
                 <div class="rating">
                     <input type="radio" name="rating" value="1" id="star1"/><label for="star1">☆</label>
                     <input type="radio" name="rating" value="2" id="star2" /><label for="star2">☆</label>
                     <input type="radio" name="rating" value="3" id="star3" /><label for="star3">☆</label>
                     <input type="radio" name="rating" value="4" id="star4" /><label for="star4">☆</label>
-                    <input type="radio" name="rating" value="5" id="star5"required /><label for="star5">☆</label>
+                    <input type="radio" name="rating" value="5" id="star5" required /><label for="star5">☆</label>
                 </div>
                 <button type="submit">Post Review</button>
             </form>
             <div id="reviewsContainer"></div>
         </section>
-    
+        
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('reviewForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+                document.getElementById('reviewForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+        
+                    // Get form values
+                    const review = document.querySelector('textarea[name="review"]').value;
+                    const name = document.querySelector('input[name="name"]').value;
+                    const rating = document.querySelector('input[name="rating"]:checked').value;
+                    const foodImage = document.querySelector('input[name="foodImage"]').files[0];
+        
+                    // Create new review element
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review');
+        
+                    // Create a FileReader to read the image file
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        reviewElement.innerHTML = `
+                            <h4>${name}</h4>
+                            <img src="${event.target.result}" alt="Food Image" style="max-width: 100px; height: auto;" />
+                            <p>${review}</p>
+                            <p>Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
+                            <hr>
+                        `;
+        
+                        // Prepend new review to reviews container
+                        const reviewsContainer = document.getElementById('reviewsContainer');
+                        reviewsContainer.insertBefore(reviewElement, reviewsContainer.firstChild);
+                    };
+        
+                    // Read the image file as a data URL
+                    if (foodImage) {
+                        reader.readAsDataURL(foodImage);
+                    }
+        
+                    // Clear form fields
+                    document.getElementById('reviewForm').reset();
+                });
+            });
 
-        // Get form values
-        const review = document.querySelector('textarea[name="review"]').value;
-        const name = document.querySelector('input[name="name"]').value;
-        const rating = document.querySelector('input[name="rating"]:checked').value;
 
-        // Create new review element
-        const reviewElement = document.createElement('div');
-        reviewElement.classList.add('review');
-        reviewElement.innerHTML = `
-            <h4>${name}</h4>
-            <p>${review}</p>
-            <p>Rating: ${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
-            <hr>
-        `;
-
-        // Prepend new review to reviews container
-        const reviewsContainer = document.getElementById('reviewsContainer');
-        reviewsContainer.insertBefore(reviewElement, reviewsContainer.firstChild);
-
-        // Clear form fields
-        document.getElementById('reviewForm').reset();
-    });
-});
 
         </script>
         
